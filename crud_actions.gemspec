@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.version     = CrudActions::VERSION
   s.authors     = ["Amit Choudhary", "Shruti Gupta"]
   s.email       = ["amitchoudhary1008@gmail.com", "inklingviashruti@gmail.com"]
-  s.homepage    = ""
+  s.homepage    = "https://github.com/amit-vinsol/crud_actions"
   s.summary     = "CrudActions gem provides seven crud actions with basic definitions."
   s.description = "A method named as has_inherited_actions is added which receives action names as paremeters which need to be defined on controller."
   s.license     = "MIT"
