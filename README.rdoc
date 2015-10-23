@@ -1,3 +1,128 @@
 = CrudActions
 
+CrudActions provides all the seven crud actions(i.e - index, new, create, edit, update, show and destroy) to your controller with basic functionalities.
+
+= Installation
+Write following in your gemfile and bundle install : -
+* gem 'crud_actions'
+
+= Usage
+Define a method named as 'has_inherited_actions' with arguments as action names which you want to include from the gem.
+For example: -
+
+  Class CategoriesController < ActionController::Base
+    has_inherited_actions :index, :new, :create, :edit, :update, :show, :destroy
+  end
+
+CategoriesController will have now all the seven actions which are passed as arguments to the 'has_inherited_actions'.
+
+The action names which are not passed as arguments are not defined for the controller and need to be defined separately in the controller
+
+= index action usage
+index action will be defined like :-
+  def index
+    @categories = Category.all
+  end
+You can also pass some options to the index - 'includes' and 'order'. Like if you define your controller like this: -
+  class CategoriesController < ActionController:: Base
+    has_inherited_actions :index
+    def index
+      super({ includes: :subcategories, order: :name })
+    end
+  end
+Then the action will be defined as
+  def index
+    @categories = Category.includes(:subcategories).order(:name)
+  end
+
+= new action usage
+new action will be defined like : -
+  def new
+    @category = Category.new
+  end
+
+= create action usage
+create action expects controller to define a method named as permitted_params_for_create for permitting params.
+create action will be defined like :-
+  def create
+    @category = Category.new(permitted_params_for_create)
+    if @category.save
+      flash[:notice] = 'Category created successfully.'
+      redirect_to action: :index
+    else
+      flash[:alert] = @category.errors.full_messages.join(', ')
+      redirect_to action: :new
+    end
+  end
+
+You can also pass some options to the create - 'redirect_to', 'notice' and 'alert'. Like if you define your controller like this: -
+  class CategoriesController < ActionController:: Base
+    has_inherited_actions :create
+    def create
+      super({ redirect_to: subcategories_path, notice: 'Successful creation', alert: 'Could not create.' })
+    end
+  end
+'redirect_to' option will be used to redirect to a path after successful creation.
+'success' option will be used to set flash[:notice] instead of default message.
+'alert' option will be used to set flash[:alert] instead of default message.
+
+= edit action usage
+edit action will be defined like : -
+  def edit
+  end
+
+= update action usage
+update action expects controller to define a method named as permitted_params_for_update for permitting params.
+It also expects controller to define an instance variable named properly before update(like: - @category in case of CategoriesController, @exams_question in case of ExamsQuestionController)
+update action will be defined like :-
+  def update
+    if @category.update(permitted_params_for_update)
+      flash[:notice] = 'Category updated successfully.'
+      redirect_to action: :index
+    else
+      flash[:alert] = @category.errors.full_messages.join(', ')
+      redirect_to action: :edit
+    end
+  end
+
+You can also pass some options to the update - 'redirect_to', 'notice' and 'alert'. Like if you define your controller like this: -
+  class CategoriesController < ActionController:: Base
+    has_inherited_actions :update
+    def update
+      super({ redirect_to: subcategories_path, notice: 'Successful updation.', alert: 'Could not update.' })
+    end
+  end
+'redirect_to' option will be used to redirect to a path after successful creation.
+'success' option will be used to set flash[:notice] instead of default message.
+'alert' option will be used to set flash[:alert] instead of default message.
+
+= show action usage
+show action will be defined like : -
+  def show
+  end
+
+= destroy action usage
+destroy action expects controller to define an instance variable named properly before destroy(like: - @category in case of CategoriesController, @exams_question in case of ExamsQuestionController)
+destroy action will be defined like :-
+  def destroy
+    if @category.destroy
+      flash[:notice] = 'Category destroyed successfully.'
+    else
+      flash[:alert] = @category.errors.full_messages.join(', ')
+    end
+    redirect_to action: :index
+  end
+
+You can also pass some options to the destroy - 'redirect_to', 'notice' and 'alert'. Like if you define your controller like this: -
+  class CategoriesController < ActionController:: Base
+    has_inherited_actions :destroy
+    def destroy
+      super({ redirect_to: subcategories_path, notice: 'Successful deletion.', alert: 'Could not destroy.' })
+    end
+  end
+'redirect_to' option will be used to redirect to a path.
+'success' option will be used to set flash[:notice] instead of default message.
+'alert' option will be used to set flash[:alert] instead of default message.
+
+
 This project rocks and uses MIT-LICENSE.

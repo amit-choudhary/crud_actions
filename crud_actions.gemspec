@@ -7,17 +7,19 @@ require "crud_actions/version"
 Gem::Specification.new do |s|
   s.name        = "crud_actions"
   s.version     = CrudActions::VERSION
-  s.authors     = ["Amit Choudhary"]
-  s.email       = ["amitchoudhary1008@gmail.com"]
-  s.homepage    = "TODO"
-  s.summary     = "TODO: Summary of CrudActions."
-  s.description = "TODO: Description of CrudActions."
+  s.authors     = ["Amit Choudhary", "Shruti Gupta"]
+  s.email       = ["amitchoudhary1008@gmail.com", "inklingviashruti@gmail.com"]
+  s.homepage    = ""
+  s.summary     = "CrudActions gem provides seven crud actions with basic definitions."
+  s.description = "A method named as has_inherited_actions is added which receives action names as paremeters which need to be defined on controller."
   s.license     = "MIT"
 
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
   s.test_files = Dir["test/**/*"]
 
-  s.add_dependency "rails", "~> 4.2.4"
+  s.add_dependency "activerecord", "~> 4.2.4"
+  s.add_dependency "activesupport", "~> 4.2.4"
+  s.add_dependency "actionpack", "~> 4.2.4"
 
-  s.add_development_dependency "sqlite3"
+  s.add_development_dependency "sqlite3", '~> 1.3.10'
 end

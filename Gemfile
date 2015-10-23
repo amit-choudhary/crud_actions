@@ -11,5 +11,13 @@ gemspec
 # your gem to rubygems.org.
 
 # To use a debugger
-# gem 'byebug', group: [:development, :test]
+group :development, :test do
+  gem 'byebug', '~> 6.0.2'
+end
+
+group :test do
+  gem 'mocha', '~> 1.1.0'
+  gem 'minitest-rg', '~> 5.2.0'
+  gem 'rake', '~> 10.4.2'
+end
 
