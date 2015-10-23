@@ -7,6 +7,8 @@ Write following in your gemfile and bundle install : -
 * gem 'crud_actions'
 
 = Usage
+Include this in your controller :-
+  include CrudActions::Actions
 Define a method named as 'has_inherited_actions' with arguments as action names which you want to include from the gem.
 For example: -
 
